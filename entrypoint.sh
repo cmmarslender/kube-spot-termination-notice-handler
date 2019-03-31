@@ -59,7 +59,7 @@ NOTICE_URL=${NOTICE_URL:-http://169.254.169.254/latest/meta-data/spot/terminatio
 echo "Polling ${NOTICE_URL} every ${POLL_INTERVAL} second(s)"
 
 # To whom it may concern: http://superuser.com/questions/590099/can-i-make-curl-fail-with-an-exitcode-different-than-0-if-the-http-status-code-i
-while http_status=$(curl -o /dev/null -w '%{http_code}' -sL "${NOTICE_URL}"); [ "${http_status}" -ne 200 ]; do
+while http_status=$(curl -o /dev/null -w '%{http_code}' -sL "${NOTICE_URL}?node=${NODE_NAME}"); [ "${http_status}" -ne 200 ]; do
   verbose && echo "$(date): ${http_status}"
   sleep "${POLL_INTERVAL}"
 done
